@@ -1,8 +1,10 @@
 package in.pharmeasy.user.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,19 +12,37 @@ import javax.persistence.Table;
 @Table(name = "medical_prescription", catalog = "test")
 public class MedicalPrescription {
 	
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long id;
 	
-	private Long doctorId;
-	
-	private Long medicalRecordId;
-	
-	public Long getDoctorId() {
-		return doctorId;
+	public MedicalPrescription(Long patientId) {
+		this.patientId = patientId;
 	}
 
-	public void setDoctorId(Long doctorId) {
-		this.doctorId = doctorId;
+	public MedicalPrescription() {
+	}
+	
+	private Long patientId;
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	private Long medicalRecordId;
+	
+	private String details;
+	
+	public Long getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(Long patientId) {
+		this.patientId = patientId;
 	}
 
 	public Long getMedicalRecordId() {
@@ -39,6 +59,14 @@ public class MedicalPrescription {
 
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
 	}
 
 	private Date createDate;

@@ -21,52 +21,39 @@
 
 <body>
 	<div id="container" class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#"></a>
-		</div>
-
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<security:authorize access="hasRole('ROLE_PATIENT')">
-					<li><a href="#">Patient</a></li>
-				</security:authorize>
-
-				<security:authorize access="hasRole('ROLE_DOCTOR')">
-					<li><a href="#">Doctors</a></li>
-				</security:authorize>
-
-				<security:authorize access="hasRole('ROLE_PHARMACIST')">
-					<li><a href="#">Pharmacy</a></li>
-				</security:authorize>
-			</ul>
-		</div>
-
+		<%@ include file="header.jsp"%>
 		<div>
-			<h1>Add New patient</h1>
-			<form:form method="post" action="/patient">
-				<table>
+			<table border="1" cellpadding="5">
+				<caption>
+					<h2>Medical Records</h2>
+				</caption>
+				<tr>
+					<th>Id</th>
+					<th>Details</th>
+					<th>Create Date</th>
+				</tr>
+				<c:forEach var="medicalRecord" items="${medicalRecords}">
 					<tr>
-						<td>Name :</td>
-						<td><form:input path="name" /></td>
+						<td><c:out value="${medicalRecord.medicalRecordId}" /></td>						
+						<td>
+							<c:if test="${medicalRecord.isApproved == 'PENDING'}">
+								<span>Approval Pending</span>
+							</c:if>							
+							<c:if test="${medicalRecord.isApproved == null}">	
+								<form method="post" action="/patient/${medicalRecord.patientId}/medical_record/${medicalRecord.medicalRecordId}/medical_record_request">
+									<input type="submit" class="btn btn-default" value="Request MR">
+								</form>
+							</c:if>
+							<c:if test="${medicalRecord.isApproved == 'APPROVED'}">
+								<c:out value="${medicalRecord.details}" />
+							</c:if>							
+						</td>						
+						<td><c:out value="${medicalRecord.createDate}" /></td>					
 					</tr>
-					
-					<tr>
-						<td></td>
-						<td><input type="submit" value="Save" /></td>
-					</tr>
-				</table>
-			</form:form>
-
+				</c:forEach>
+			</table>
 		</div>
-		
+
 
 		<%-- 		<tabset> <tab heading="Personal info"> <form:form --%>
 		<%-- 			method="post" action="save.htm" commandName="user"> --%>

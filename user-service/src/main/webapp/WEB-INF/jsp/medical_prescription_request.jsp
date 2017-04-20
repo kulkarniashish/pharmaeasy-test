@@ -21,47 +21,34 @@
 
 <body>
 	<div id="container" class="container-fluid">
-		
 		<%@ include file="header.jsp"%>
-				
-		<div>
-			<h2>Add New patient</h2>
-			<form:form method="post" action="/patient">
-				<table>
-					<tr>
-						<td>Name :</td>
-						<td><form:input path="name" /></td>
-					</tr>
-					<tr>
-						<td>Username :</td>
-						<td><form:input path="username" /></td>
-					</tr>
-					
-					<tr>
-						<td></td>
-						<td><input type="submit" value="Save" /></td>
-					</tr>
-				</table>
-			</form:form>
-		</div>	
-			
 		<div>
 			<table border="1" cellpadding="5">
 				<caption>
-					<h2>Patients</h2>
+					<h2>Medical Prescriptions</h2>
 				</caption>
 				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Medical Records</th>
-					<th>Action</th>
+					<th>Id</th>
+					<th>Details</th>
+					<th>Create Date</th>
 				</tr>
-				<c:forEach var="user" items="${patients}">
+				<c:forEach var="medicalPrescription" items="${medicalPrescriptions}">
 					<tr>
-						<td><c:out value="${user.id}" /></td>
-						<td><c:out value="${user.name}" /></td>
-						<td><c:out value="" /></td>
-						<td><c:out value="" /><a href="/patient/${user.id}/records" class="btn btn-default">View</a></td>
+						<td><c:out value="${medicalPrescription.medicalRecordId}" /></td>						
+						<td>
+							<c:if test="${medicalPrescription.isApproved == 'PENDING'}">
+								<span>Approval Pending</span>
+							</c:if>							
+							<c:if test="${medicalPrescription.isApproved == null}">	
+								<form method="post" action="/patient/${medicalPrescription.patientId}/medical_prescription/${medicalPrescription.medicalRecordId}/medical_prescription_request">
+									<input type="submit" class="btn btn-default" value="Request Prescription">
+								</form>
+							</c:if>
+							<c:if test="${medicalPrescription.isApproved == 'APPROVED'}">
+								<c:out value="${medicalPrescription.details}" />
+							</c:if>							
+						</td>						
+						<td><c:out value="${medicalPrescription.createDate}" /></td>					
 					</tr>
 				</c:forEach>
 			</table>

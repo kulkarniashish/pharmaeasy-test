@@ -21,47 +21,55 @@
 
 <body>
 	<div id="container" class="container-fluid">
-		
 		<%@ include file="header.jsp"%>
 				
 		<div>
-			<h2>Add New patient</h2>
-			<form:form method="post" action="/patient">
-				<table>
+			<table border="1" cellpadding="5">
+				<caption>
+					<h2>Medical Record Request</h2>
+				</caption>
+				<tr>
+					<th>Id</th>
+					<th>doctorId</th>
+					<th>medicalRecordId</th>
+					<th>Action</th>
+				</tr>
+				<c:forEach var="mr_pending_approval" items="${mr_pending_approvals}">
 					<tr>
-						<td>Name :</td>
-						<td><form:input path="name" /></td>
+						<td><c:out value="${mr_pending_approval.id}" /></td>						
+						<td>
+							<c:out value="${mr_pending_approval.doctorId}" />
+						</td>						
+						<td><c:out value="${mr_pending_approval.medicalRecordId}" /></td>
+						<td>
+							<form method="post" action="/doctor/${mr_pending_approval.doctorId}/medical_record_id/${mr_pending_approval.medicalRecordId}/medical_record_request/approve">
+									<input type="submit" class="btn btn-default" value="Approve">
+								</form>
+						</td>
 					</tr>
-					<tr>
-						<td>Username :</td>
-						<td><form:input path="username" /></td>
-					</tr>
-					
-					<tr>
-						<td></td>
-						<td><input type="submit" value="Save" /></td>
-					</tr>
-				</table>
-			</form:form>
-		</div>	
-			
+				</c:forEach>
+			</table>
+		</div>
+		
 		<div>
 			<table border="1" cellpadding="5">
 				<caption>
-					<h2>Patients</h2>
+					<h2>Medical Prescription Request</h2>
 				</caption>
 				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Medical Records</th>
+					<th>Id</th>
+					<th>Pharmacy Id</th>
+					<th>Medical Presciption Id</th>
 					<th>Action</th>
 				</tr>
-				<c:forEach var="user" items="${patients}">
+				<c:forEach var="mr_pending_approval" items="${mr_pending_approvals}">
 					<tr>
-						<td><c:out value="${user.id}" /></td>
-						<td><c:out value="${user.name}" /></td>
-						<td><c:out value="" /></td>
-						<td><c:out value="" /><a href="/patient/${user.id}/records" class="btn btn-default">View</a></td>
+						<td><c:out value="${mr_pending_approval.id}" /></td>						
+						<td>
+							<c:out value="${mr_pending_approval.doctorId}" />
+						</td>						
+						<td><c:out value="${mr_pending_approval.medicalRecordId}" /></td>
+						<td></td>						
 					</tr>
 				</c:forEach>
 			</table>

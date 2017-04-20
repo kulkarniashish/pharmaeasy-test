@@ -1,8 +1,11 @@
 package in.pharmeasy.user.domain;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,6 +13,15 @@ import javax.persistence.Table;
 @Table(name = "medical_record", catalog = "test")
 public class MedicalRecord {
 
+	public MedicalRecord(Long patientId) {
+		super();
+		this.patientId = patientId;
+	}
+	
+	public MedicalRecord() {
+	}
+
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long id;
 	

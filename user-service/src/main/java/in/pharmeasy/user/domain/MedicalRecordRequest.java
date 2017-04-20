@@ -3,8 +3,14 @@ package in.pharmeasy.user.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import in.pharmeasy.user.value.ApproveStatus;
 
 @Entity
 @Table(name = "medical_record_request", catalog = "test")
@@ -16,9 +22,14 @@ public class MedicalRecordRequest {
 		this.medicalRecordId = medicalRecordId;
 		this.patientId = patientId;
 		this.createDate = new Date();
-		this.isApproved = false;
+		this.isApproved = ApproveStatus.PENDING;
+	}
+	
+	public MedicalRecordRequest(){
+		
 	}
 
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Id
 	private Long id;
 	
@@ -29,7 +40,8 @@ public class MedicalRecordRequest {
 	private Date createDate;
 	private Date approvedDate;
 	
-	private Boolean isApproved = false;
+	@Enumerated(EnumType.STRING)
+	private ApproveStatus isApproved = ApproveStatus.PENDING;
 
 	public Long getId() {
 		return id;
@@ -79,11 +91,11 @@ public class MedicalRecordRequest {
 		this.approvedDate = approvedDate;
 	}
 
-	public Boolean getIsApproved() {
+	public ApproveStatus getIsApproved() {
 		return isApproved;
 	}
 
-	public void setIsApproved(Boolean isApproved) {
+	public void setIsApproved(ApproveStatus isApproved) {
 		this.isApproved = isApproved;
 	}
 }

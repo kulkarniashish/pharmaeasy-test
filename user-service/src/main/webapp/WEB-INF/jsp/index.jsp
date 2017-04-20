@@ -21,53 +21,8 @@
 
 <body>
 	<div id="container" class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed"
-				data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-				aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#"></a>
-		</div>
 
-		<div class="collapse navbar-collapse"
-			id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav">
-				<security:authorize access="hasRole('ROLE_PATIENT')">
-					<li><a href="#">Patient</a></li>
-				</security:authorize>
-
-				<security:authorize access="hasRole('ROLE_DOCTOR')">
-					<li><a href="#">Doctors</a></li>
-				</security:authorize>
-
-				<security:authorize access="hasRole('ROLE_PHARMACIST')">
-					<li><a href="#">Pharmacy</a></li>
-				</security:authorize>
-			</ul>
-		</div>
-
-		<div align="center">
-			<table border="1" cellpadding="5">
-				<caption>
-					<h2>List of Patients</h2>
-				</caption>
-				<tr>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Medical Records</th>
-				</tr>
-				<c:forEach var="user" items="${patients}">
-					<tr>
-						<td><c:out value="${user.id}" /></td>
-						<td><c:out value="${user.name}" /></td>
-
-					</tr>
-				</c:forEach>
-			</table>
-		</div>
+		<%@ include file="header.jsp"%>
 
 
 		<%-- 		<tabset> <tab heading="Personal info"> <form:form --%>

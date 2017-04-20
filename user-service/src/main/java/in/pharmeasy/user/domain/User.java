@@ -18,6 +18,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
+	public User(UserType userType) {
+		super();
+		this.userType = userType;
+	}
+	
+	public User() {
+	}
+
 	private String username; 
 	
 	private String name;
