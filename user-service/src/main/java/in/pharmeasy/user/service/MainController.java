@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import in.pharmeasy.user.domain.MedicalPrescription;
+import in.pharmeasy.user.domain.MedicalPrescriptionRequest;
 import in.pharmeasy.user.domain.MedicalRecord;
 import in.pharmeasy.user.domain.MedicalRecordRequest;
 import in.pharmeasy.user.domain.User;
 import in.pharmeasy.user.repo.MedicalPrescriptionDao;
 import in.pharmeasy.user.repo.MedicalPrescriptionRepo;
+import in.pharmeasy.user.repo.MedicalPrescriptionRequestRepo;
 import in.pharmeasy.user.repo.MedicalRecordDao;
 import in.pharmeasy.user.repo.MedicalRecordRepo;
 import in.pharmeasy.user.repo.MedicalRecordRequestRepo;
@@ -39,6 +41,9 @@ public class MainController {
 
 	@Autowired
 	private MedicalPrescriptionRepo medicalPrescriptionRepo;
+	
+	@Autowired
+	private MedicalPrescriptionRequestRepo medicalPrescriptionRequestRepo;
 	
 	@Autowired
 	private MedicalRecordDao medicalRecordDao;
@@ -84,7 +89,7 @@ public class MainController {
 		
 		Long userId = getLoggedInUserId();
 		mv.addObject("mr_pending_approvals", medicalRecordRequestRepo.findByPatientIdAndIsApprovedIn(userId, Arrays.asList( new ApproveStatus[] {ApproveStatus.PENDING, ApproveStatus.NOT_APPROVED})));
-		mv.addObject("pr_pending_approvals", medicalRecordRequestRepo.findByPatientIdAndIsApprovedIn(userId, Arrays.asList( new ApproveStatus[] {ApproveStatus.PENDING, ApproveStatus.NOT_APPROVED})));
+		mv.addObject("pr_pending_approvals", medicalPrescriptionRequestRepo.findByPatientIdAndIsApprovedIn(userId, Arrays.asList( new ApproveStatus[] {ApproveStatus.PENDING, ApproveStatus.NOT_APPROVED})));
 		return mv;
 	}
 
@@ -192,17 +197,17 @@ public class MainController {
 		Long userId = getLoggedInUserId();
 		
 		ModelAndView mv = new ModelAndView("medical_record_request_approval");
-		MedicalRecordRequest mrr = new MedicalRecordRequest(userId, medicalPrescriptionId, patientId);
-		medicalRecordRequestRepo.save(mrr);
+		MedicalPrescriptionRequest mrr = new MedicalPrescriptionRequest(userId, medicalPrescriptionId, patientId);
+		medicalPrescriptionRequestRepo.save(mrr);
 		return mv;
 	}
 
-	@RequestMapping(value = "/doctor/{doctorId}/medical_prescription_id/{medicalRecordId}/medical_record_request/approve", method = RequestMethod.POST)
-	public ModelAndView approveMP(@PathVariable Long doctorId, @PathVariable Long medicalRecordId) {
+	@RequestMapping(value = "/doctor/{doctorId}/medical_prescription_id/{medicalPrescriptionId}/medical_prescription_request/approve", method = RequestMethod.POST)
+	public ModelAndView approveMP(@PathVariable Long doctorId, @PathVariable Long medicalPrescriptionId) {
 		ModelAndView mv = new ModelAndView("medical_record_request_approval");
 		
 		Long userId = getLoggedInUserId();
-		medicalRecordRequestRepo.updateStatusToApprovedForPatient(userId, doctorId, medicalRecordId);
+		medicalPrescriptionRequestRepo.updateStatusToApprovedForPatient(userId, doctorId, medicalPrescriptionId);
 		return mv;
 	}
 

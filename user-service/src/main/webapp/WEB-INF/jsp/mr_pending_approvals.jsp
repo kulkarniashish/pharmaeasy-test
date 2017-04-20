@@ -62,14 +62,18 @@
 					<th>Medical Presciption Id</th>
 					<th>Action</th>
 				</tr>
-				<c:forEach var="mr_pending_approval" items="${mr_pending_approvals}">
+				<c:forEach var="pr_pending_approval" items="${pr_pending_approvals}">
 					<tr>
-						<td><c:out value="${mr_pending_approval.id}" /></td>						
+						<td><c:out value="${pr_pending_approval.id}" /></td>						
 						<td>
-							<c:out value="${mr_pending_approval.doctorId}" />
+							<c:out value="${pr_pending_approval.pharmacistId}" />
 						</td>						
-						<td><c:out value="${mr_pending_approval.medicalRecordId}" /></td>
-						<td></td>						
+						<td><c:out value="${pr_pending_approval.medicalPrescriptionId}" /></td>
+						<td>
+							<form method="post" action="/doctor/${pr_pending_approval.pharmacistId}/medical_prescription_id/${pr_pending_approval.medicalPrescriptionId}/medical_prescription_request/approve">
+									<input type="submit" class="btn btn-default" value="Approve">
+								</form>
+						</td>						
 					</tr>
 				</c:forEach>
 			</table>

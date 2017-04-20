@@ -26,11 +26,16 @@ public class MedicalPrescriptionRequest {
 		this.id = id;
 	}
 
-	public MedicalPrescriptionRequest(Long pharmacistId, Long patientId) {
+	public MedicalPrescriptionRequest(Long pharmacistId, Long medicalPrescriptionId, Long patientId) {
 		this.pharmacistId = pharmacistId;
+		this.medicalPrescriptionId = medicalPrescriptionId;
 		this.patientId = patientId;
 		this.createDate = new Date();
 		this.isApproved = ApproveStatus.PENDING;
+	}
+	
+	public MedicalPrescriptionRequest() {
+		
 	}
 
 	public Long getPharmacistId() {
