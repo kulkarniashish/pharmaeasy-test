@@ -1,0 +1,18 @@
+
+
+System requirements:
+Java 1.7 or newer
+MySQL Server
+
+
+To build the application:
+Create new database 'test' on mysql server.
+Execute the attached data.sql.
+
+Then Build your code using
+mvn clean install 
+
+To start the applciation
+mvn spring-boot:run
+
+
