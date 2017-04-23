@@ -9,13 +9,6 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-
-
 <title>Test</title>
 </head>
 
@@ -23,108 +16,54 @@
 	<div id="container" class="container-fluid">
 		
 		<%@ include file="header.jsp"%>
-				
+		
 		<div>
-			<h2>Add New patient</h2>
-			<form:form method="post" action="/patient">
-				<table>
-					<tr>
-						<td>Name :</td>
-						<td><form:input path="name" /></td>
-					</tr>
-					<tr>
-						<td>Username :</td>
-						<td><form:input path="username" /></td>
-					</tr>
-					
-					<tr>
-						<td></td>
-						<td><input type="submit" value="Save" /></td>
-					</tr>
-				</table>
+			<h3>Add New patient</h3>
+			<form:form method="post" action="/patient"
+				class="form-horizontal">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Name :</label>
+					 <div class="col-sm-10">
+						<form:input path="name" class="form-control" placeholder="Patient Name" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Username :</label>
+					 <div class="col-sm-10">
+						<form:input path="username" class="form-control" placeholder="Patient username" />
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" class="btn btn-default">Save</button>
+					</div>
+				</div>
 			</form:form>
-		</div>	
+		</div>
+			
 			
 		<div>
-			<table border="1" cellpadding="5">
+			<table border="1" class="table table-striped table-responsive">
 				<caption>
-					<h2>Patients</h2>
+					<h4>Patients</h4>
 				</caption>
 				<tr>
 					<th>ID</th>
 					<th>Name</th>
-					<th>Medical Records</th>
 					<th>Action</th>
 				</tr>
 				<c:forEach var="user" items="${patients}">
 					<tr>
 						<td><c:out value="${user.id}" /></td>
-						<td><c:out value="${user.name}" /></td>
-						<td><c:out value="" /></td>
+						<td><c:out value="${user.username}" /></td>
 						<td><c:out value="" /><a href="/patient/${user.id}/records" class="btn btn-default">View</a></td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
-
-
-		<%-- 		<tabset> <tab heading="Personal info"> <form:form --%>
-		<%-- 			method="post" action="save.htm" commandName="user"> --%>
-		<!-- 			<table class="table table-bordered"> -->
-		<!-- 				<tr> -->
-		<%-- 					<c:if test="${pageContext.request.userPrincipal.name != null}"> --%>
-		<!-- 						<h2> -->
-		<%-- 							Welcome : ${pageContext.request.userPrincipal.name} | <a --%>
-		<!-- 								href="/logout"/"> Logout</a> -->
-		<!-- 						</h2> -->
-		<%-- 					</c:if> --%>
-		<!-- 				</tr> -->
-
-		<!-- 			</table> -->
-		<%-- 		</form:form> </tab> </tabset> --%>
-
-		<%-- 		<%-- <span><%= session.getAttribute("continueURL") %></span> --%>
-
-		<%-- 		<security:authorize --%>
-		<%-- 			access="hasRole('ROLE_PATIENT')"> --%>
-		<!-- 			<h3>Medical History</h3> -->
-		<%-- 		</security:authorize> --%>
-
-		<!-- 		<div class="row"> -->
-		<%-- 			<security:authorize --%>
-		<%-- 				access="hasRole('ROLE_PATIENT')"> --%>
-		<!-- 				<div class="col-sm-3 col-md-2"> -->
-		<!-- 					<a href="http://frontdesk.mediaiqdigital.com" class="thumbnail"> -->
-		<!-- 						<img src="images/sales.png" alt="Frontdesk"> <span -->
-		<!-- 						class="caption"> -->
-
-		<!-- 					</span> -->
-		<!-- 					</a> -->
-		<!-- 				</div> -->
-		<%-- 			</security:authorize> --%>
-		<!-- 		</div> -->
-
-		<!-- 		<div class="row"> -->
-		<%-- 			<security:authorize --%>
-		<%-- 				access="hasRole('ROLE_DOCTOR')"> --%>
-		<!-- 				<div class="col-sm-3 col-md-2"> -->
-		<!-- 					<span -->
-		<!-- 						class="caption"> -->
-		<!-- 							Add Medical Record -->
-		<!-- 							Request Medical Record -->
-		<!-- 							List Patients -->
-		<!-- 					</span> -->
-		<!-- 					</a> -->
-		<!-- 				</div> -->
-		<%-- 			</security:authorize> --%>
-		<!-- 		</div> -->
 	</div>
 </body>
-<!-- Latest compiled and minified JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
-
 </html>
 

@@ -78,7 +78,7 @@ public class MainController {
 	@RequestMapping(value = "/patient", method = RequestMethod.POST)
 	public String savePatient(@ModelAttribute("patient") User patient) {
 		ModelAndView mv = new ModelAndView("patient");
-		patient.setUserType(UserType.PATIENT);
+		patient.setUserType(UserType.ROLE_PATIENT);
 		userRepo.save(patient);
 		return "redirect:/patient";
 	}
@@ -96,15 +96,15 @@ public class MainController {
 	@RequestMapping(value = "/patient", method = RequestMethod.GET)
 	public ModelAndView getAllPatients() {
 		ModelAndView mv = new ModelAndView("patients");
-		mv.addObject("patients", userRepo.findByUserType(UserType.PATIENT));
-		mv.addObject("command", new User(UserType.PATIENT));
+		mv.addObject("patients", userRepo.findByUserType(UserType.ROLE_PATIENT));
+		mv.addObject("command", new User(UserType.ROLE_PATIENT));
 		return mv;
 	}
 	
 	@RequestMapping(value = "/pharmacist", method = RequestMethod.GET)
 	public ModelAndView getAllPharmacists() {
 		ModelAndView mv = new ModelAndView("pharmacists");
-		mv.addObject("patients", userRepo.findByUserType(UserType.PATIENT));
+		mv.addObject("patients", userRepo.findByUserType(UserType.ROLE_PATIENT));
 		return mv;
 	}
 		

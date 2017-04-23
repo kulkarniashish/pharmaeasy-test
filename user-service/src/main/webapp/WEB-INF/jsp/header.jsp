@@ -3,6 +3,19 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+	
+<c:set var="contextPath" value="<%=request.getContextPath() %>" />
+
+<!-- js -->
+<script type="text/javascript" src="${contextPath}/resources/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/bootstrap.min.js"></script>
+
+<!-- css -->
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/main.css" />
+<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/bootstrap.min.css" />
+
+<!-- Mediaiq favicon -->
+<link rel="shortcut icon" href="${contextPath}/resources/images/favicon.ico" />	
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
@@ -32,11 +45,11 @@
 				</security:authorize>
 
 				<security:authorize access="hasRole('ROLE_DOCTOR')">
-					<li><a href="">Patients</a></li>
+					<li><a href="/patient">Patients</a></li>
 				</security:authorize>
 
 				<security:authorize access="hasRole('ROLE_PHARMACIST')">
-					<li><a href="">Pharmacy</a></li>
+					<li><a href="/pharmacist">Pharmacy</a></li>
 				</security:authorize>
 			</ul>
 		</div>

@@ -3,19 +3,19 @@ server:
   
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306
+    url: jdbc:mysql://localhost:3306/test
     username: root
     password: root
     driverClassName: com.mysql.jdbc.Driver
     testOnBorrow: true
     validationQuery: SELECT 1
-  view:
-    prefix: /
-    suffix: .jsp    
+    data: data-mysql.sql
+    platform: mysql
   jpa:
     hibernate:
       ddl-auto: update
-      show_sql: true
+    show-sql: true
+    generate-ddl: true
     properties:
       hibernate:
         hbm2ddl:
